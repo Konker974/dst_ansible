@@ -1,0 +1,17 @@
+---
+- name: Installation PrestaShop
+  command:
+    cmd: >
+      php install/index_cli.php
+      --domain={{ ansible_host }}
+      --db_server={{ mysql_server }}
+      --db_name={{ bdd_name }}
+      --db_user={{ bdd_user }}
+      --db_password={{ bdd_password }}
+      --db_create=0
+      --prefix=ps_
+      --email=admin@example.com
+      --password=Admin123!
+  args:
+    chdir: "{{ app_path }}"
+    creates: "{{ app_path }}/app/config/parameters.php"
