@@ -1,2 +1,8 @@
-création utilisateur
-attribution des droits
+---
+- name: Grant privileges
+  community.mysql.mysql_user:
+    name: "{{ bdd_user }}"
+    password: "{{ bdd_password }}"
+    host: "{{ authorized_ips }}"
+    priv: "{{ bdd_name }}.*:ALL"
+    state: present

@@ -1,1 +1,5 @@
-création de la base
+---
+- name: Create database
+  community.mysql.mysql_db:
+    name: "{{ bdd_name }}"
+    state: present

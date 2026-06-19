@@ -1,3 +1,8 @@
 #SPDX-License-Identifier: MIT-0
 ---
-# tasks file for mysql
+- import_tasks: install.yaml
+- import_tasks: networking.yaml
+- import_tasks: security.yaml
+- import_tasks: create_bdd.yaml
+- import_tasks: create_user.yaml
+- import_tasks: configration.yaml

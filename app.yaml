@@ -1,3 +1,10 @@
-role mysql
+---
+- hosts: bdd_group
+  become: true
+  roles:
+    - mysql
 
-role prestashop
+- hosts: app_group
+  become: true
+  roles:
+    - prestashop

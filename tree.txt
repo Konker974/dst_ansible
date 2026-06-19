@@ -1,0 +1,50 @@
+.
+├── app.yaml
+├── groupvars
+│   ├── all.yaml
+│   ├── app_group.yaml
+│   └── bdd_group.yaml
+├── inventory
+├── roles
+│   ├── mysql
+│   │   ├── defaults
+│   │   │   └── main.yml
+│   │   ├── handlers
+│   │   │   └── main.yml
+│   │   ├── meta
+│   │   │   └── main.yml
+│   │   ├── README.md
+│   │   ├── tasks
+│   │   │   ├── configration.yaml
+│   │   │   ├── create_bdd.yaml
+│   │   │   ├── create_user.yaml
+│   │   │   ├── install.yaml
+│   │   │   ├── main.yml
+│   │   │   ├── networking.yaml
+│   │   │   └── security.yaml
+│   │   ├── tests
+│   │   │   ├── inventory
+│   │   │   └── test.yml
+│   │   └── vars
+│   │       └── main.yml
+│   └── prestashop
+│       ├── defaults
+│       │   └── main.yml
+│       ├── handlers
+│       │   └── main.yml
+│       ├── meta
+│       │   └── main.yml
+│       ├── README.md
+│       ├── tasks
+│       │   ├── deploy_prestashop.yaml
+│       │   ├── main.yml
+│       │   ├── prepare_system.yaml
+│       │   └── start_http.yaml
+│       ├── tests
+│       │   ├── inventory
+│       │   └── test.yml
+│       └── vars
+│           └── main.yml
+└── tree.txt
+
+17 directories, 31 files

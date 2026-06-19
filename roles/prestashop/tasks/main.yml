@@ -1,3 +1,4 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# tasks file for prestashop
+- import_tasks: prepare_system.yaml
+- import_tasks: deploy_prestashop.yaml
+- import_tasks: start_http.yaml

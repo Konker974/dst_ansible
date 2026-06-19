@@ -1,1 +1,6 @@
-définition du mot de passe root
+---
+- name: Allow app host
+  community.mysql.mysql_query:
+    login_user: root
+    login_password: "{{ root_password }}"
+    query: "CREATE USER IF NOT EXISTS '{{ bdd_user }}'@'{{ authorized_ips }}' IDENTIFIED BY '{{ bdd_password }}';"

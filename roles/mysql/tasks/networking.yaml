@@ -1,2 +1,7 @@
-écoute sur l'IP du serveur
-autorisation des connexions distantes
+---
+- name: Listen on all interfaces
+  lineinfile:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: '^bind-address'
+    line: 'bind-address = 0.0.0.0'
+  notify: restart mysql
