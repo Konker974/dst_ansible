@@ -5,3 +5,10 @@
     state: present
     login_unix_socket: /run/mysqld/mysqld.sock
     login_user: root
+
+- name: Définir le mot de passe root MySQL
+  become: yes
+  shell: |
+    mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY '{{ root_password }}';"
+    mysql -u root -e "FLUSH PRIVILEGES;"
+  changed_when: false
