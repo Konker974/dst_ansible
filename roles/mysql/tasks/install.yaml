@@ -6,4 +6,4 @@
       - mysql-server
       - python3-pymysql
     state: present
-    update_cache: true
+    update_cache: false

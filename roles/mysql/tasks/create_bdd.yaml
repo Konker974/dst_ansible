@@ -1,5 +1,6 @@
 ---
 - name: Create database
-  community.mysql.mysql_db:
+  ansible.mysql.mysql_db:
     name: "{{ bdd_name }}"
     state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
