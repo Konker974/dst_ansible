@@ -3,3 +3,7 @@ app_path: /var/www/html/prestashop
 http_port: 80
 mysql_server: 10.0.2.125
 
+prestashop_domain: 10.0.9.102
+prestashop_admin_mail: admin@example.com
+prestashop_admin_password: ChangeMe123!
+prestashop_db_prefix: ps_
