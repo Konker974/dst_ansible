@@ -1,4 +1,0 @@
-- name: Installation dépendances Composer
-  command:
-    cmd: composer install --no-dev --optimize-autoloader
-    chdir: "{{ app_path }}"
