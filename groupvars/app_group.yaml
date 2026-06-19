@@ -1,0 +1,3 @@
+dl_url: https://github.com/PrestaShop/PrestaShop/archive/refs/tags/9.1.4.zip
+app_path: /app/prestashop
+http_port: 80

@@ -9,4 +9,11 @@ all:
       ansible_user: ubuntu
       ansible_ssh_private_key_file: dst.pem
 
+  children:
+    app_group:
+      hosts:
+        prestashop
+    bdd_group:
+      hosts:
+        bdd
 
