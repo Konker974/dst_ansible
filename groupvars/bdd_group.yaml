@@ -1,7 +1,3 @@
 root_password: root
-bdd_name: prestashop
-bdd_user: admin_prestashop
-bdd_password: admin_prestashop_mdp
-
 authorized_ips: 10.0.9.102
 port: 3306

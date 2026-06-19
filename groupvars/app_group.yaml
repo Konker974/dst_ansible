@@ -1,3 +1,5 @@
 dl_url: https://github.com/PrestaShop/PrestaShop/archive/refs/tags/9.1.4.zip
-app_path: /app/prestashop
+app_path: /var/www/html/prestashop
 http_port: 80
+mysql_server: 10.0.2.125
+
