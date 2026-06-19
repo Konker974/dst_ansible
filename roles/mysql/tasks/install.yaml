@@ -7,3 +7,10 @@
       - python3-pymysql
     state: present
     update_cache: false
+    register: mysql_secure_output
+    changed_when: false  # Évite de marquer la tâche comme "changed" à chaque exécution
+    ignore_errors: yes   # Au cas où la commande échoue (ex: si MySQL est déjà sécurisé)
+
+- name: Debug output to see root password (if generated)
+  ansible.builtin.debug:
+    var: mysql_secure_output.stdout_lines
