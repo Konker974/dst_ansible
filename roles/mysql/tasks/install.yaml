@@ -1,5 +1,6 @@
 ---
 - name: Install MySQL
+  become: yes
   apt:
     name:
       - mysql-server
