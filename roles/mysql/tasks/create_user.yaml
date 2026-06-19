@@ -3,5 +3,6 @@
   ansible.mysql.mysql_user:
     name: "{{ bdd_user }}"
     password: "{{ bdd_password }}"
+    login_user: root
     priv: "{{ bdd_name }}.*:ALL"
     state: present

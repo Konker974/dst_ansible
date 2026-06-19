@@ -1,2 +1,2 @@
 root_password: root
-port: 3306
+bdd_port: 3306
