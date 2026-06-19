@@ -1,6 +1,6 @@
 ---
 - name: Grant privileges
-  community.mysql.mysql_user:
+  ansible.mysql.mysql_user:
     name: "{{ bdd_user }}"
     password: "{{ bdd_password }}"
     host: "{{ authorized_ips }}"
