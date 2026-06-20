@@ -7,6 +7,15 @@
       - libapache2-mod-php
       - php
       - php-mysql
+      - php-cli
+      - php-common
+      - php-curl
+      - php-xml
+      - php-gd
+      - php-intl
+      - php-mbstring
+      - php-zip
+      - php-bcmath
       - unzip
       - wget
       - composer
