@@ -1,12 +1,12 @@
 ---
 - name: Grant privileges
-  community.mysql.mysql_user:
-    name: "{{ bdd_user }}"
-    password: "{{ bdd_password }}"
-    plugin: caching_sha2_password
-    login_user: root
-    login_password: "{{ root_password }}"
-    login_unix_socket: /run/mysqld/mysqld.sock
-    priv: "{{ bdd_name }}.*:ALL"
-    state: present
-    host: "%"
+  become: yes
+  shell: |
+    mysql -u root --password='{{ root_password }}' --socket=/run/mysqld/mysqld.sock <<'EOF'
+    CREATE USER IF NOT EXISTS '{{ bdd_user }}'@'%' IDENTIFIED WITH caching_sha2_password BY '{{ bdd_password }}';
+    ALTER USER '{{ bdd_user }}'@'%' IDENTIFIED WITH caching_sha2_password BY '{{ bdd_password }}';
+    GRANT ALL PRIVILEGES ON `{{ bdd_name }}`.* TO '{{ bdd_user }}'@'%';
+    FLUSH PRIVILEGES;
+    EOF
+  no_log: true
+  changed_when: false
