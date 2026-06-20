@@ -1,3 +1,5 @@
 bdd_name: prestashop
 bdd_user: admin_prestashop
 bdd_password: admin_prestashop_mdp
+prestashop_user: prestashop
+prestashop_group: prestashop

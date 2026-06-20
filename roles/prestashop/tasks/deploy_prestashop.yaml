@@ -15,3 +15,11 @@
     src: /tmp/PrestaShop-9.1.4/
     dest: "{{ app_path }}"
     remote_src: true
+
+- name: Attribuer les droits sur l'application
+  become: true
+  ansible.builtin.file:
+    path: "{{ app_path }}"
+    owner: "{{ prestashop_user }}"
+    group: "{{ prestashop_group }}"
+    recurse: true

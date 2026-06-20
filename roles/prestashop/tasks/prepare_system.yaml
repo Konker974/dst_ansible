@@ -12,3 +12,13 @@
       - composer
     state: present
     update_cache: true
+    
+- name: Créer l'utilisateur Prestashop
+  become: true
+  ansible.builtin.user:
+    name: "{{ prestashop_user }}"
+    group: "{{ prestashop_group }}"
+    system: true
+    create_home: false
+    shell: /usr/sbin/nologin
+    state: present
