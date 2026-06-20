@@ -3,6 +3,6 @@ app_path: /var/www/html/prestashop
 http_port: 80
 mysql_server: 10.0.9.29
 prestashop_domain: localhost
-prestashop_admin_mail: admin@example.com
+prestashop_admin_mail: pignolet.alexandre@gmail.com
 prestashop_admin_password: ChangeMe123!
 prestashop_db_prefix: pt_

@@ -2,7 +2,7 @@
 - name: Installation PrestaShop
   command:
     cmd: >
-      php install/index_cli.php
+      php install-dev/index_cli.php
       --domain={{ ansible_host }}
       --db_server={{ mysql_server }}
       --db_name={{ bdd_name }}
