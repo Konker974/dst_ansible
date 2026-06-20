@@ -22,18 +22,3 @@
     state: present
     update_cache: true
 
-- name: Créer le groupe Prestashop
-  become: true
-  ansible.builtin.group:
-    name: "{{ prestashop_group }}"
-    state: present
-
-- name: Créer l'utilisateur Prestashop
-  become: true
-  ansible.builtin.user:
-    name: "{{ prestashop_user }}"
-    group: "{{ prestashop_group }}"
-    system: true
-    create_home: false
-    shell: /usr/sbin/nologin
-    state: present
