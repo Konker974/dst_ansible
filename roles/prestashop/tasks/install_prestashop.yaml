@@ -12,6 +12,7 @@
       --prefix={{ prestashop_db_prefix }}
       --email={{ prestashop_admin_mail }}
       --password={{ prestashop_admin_password }}
+      --theme=classic
   args:
     chdir: "{{ app_path }}"
     creates: "{{ app_path }}/app/config/parameters.php"
