@@ -20,10 +20,3 @@
     remote_src: true
 
 
-- name: Attribuer les droits sur l'application
-  become: true
-  ansible.builtin.file:
-    path: "{{ app_path }}"
-    owner: "{{ prestashop_user }}"
-    group: "{{ prestashop_group }}"
-    recurse: true
