@@ -16,6 +16,7 @@
     dest: "{{ app_path }}"
     remote_src: true
 
+
 - name: Attribuer les droits sur l'application
   become: true
   ansible.builtin.file:

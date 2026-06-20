@@ -12,7 +12,13 @@
       - composer
     state: present
     update_cache: true
-    
+
+- name: Créer le groupe Prestashop
+  become: true
+  ansible.builtin.group:
+    name: "{{ prestashop_group }}"
+    state: present
+
 - name: Créer l'utilisateur Prestashop
   become: true
   ansible.builtin.user:
