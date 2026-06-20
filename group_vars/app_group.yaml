@@ -2,7 +2,7 @@ dl_url: https://github.com/PrestaShop/PrestaShop/archive/refs/tags/9.1.4.zip
 app_path: /var/www/html/prestashop
 http_port: 80
 mysql_server: 10.0.9.29
-prestashop_domain: localhost
+prestashop_domain: "ec2-13-39-233-74.eu-west-3.compute.amazonaws.com"
 prestashop_admin_mail: pignolet.alexandre@gmail.com
 prestashop_admin_password: ChangeMe123!
 prestashop_db_prefix: pt_
