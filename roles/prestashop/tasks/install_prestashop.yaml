@@ -1,11 +1,12 @@
 ---
 - name: Build assets thème classic
-  command:
-    cmd: npm install && npm run build
+  shell: |
+    npm install
+    npm run build
+  args:
     chdir: "{{ app_path }}/themes/classic"
   become: true
-  become_user: www-data
-
+  
 - name: Installation PrestaShop
   command:
     cmd: >
