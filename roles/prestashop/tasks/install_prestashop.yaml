@@ -19,7 +19,7 @@
 - name: Installation PrestaShop
   shell: >
     php install-dev/index_cli.php
-    --domain={{ ansible_host }}
+    --domain={{ prestashop_domain }}
     --db_server={{ mysql_server }}
     --db_name={{ bdd_name }}
     --db_user={{ bdd_user }}
