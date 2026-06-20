@@ -1,5 +1,7 @@
 - name: Installer les dépendances Composer
-  become_user: "{{ prestashop_user }}"
   community.general.composer:
     command: install
     working_dir: "{{ app_path }}"
+  become: true
+  environment:
+    COMPOSER_ALLOW_SUPERUSER: "1"
