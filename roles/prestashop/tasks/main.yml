@@ -1,2 +1,3 @@
 ---
 - import_tasks: prepare_system.yaml
+- import_tasks: deploy_prestashop.yaml
