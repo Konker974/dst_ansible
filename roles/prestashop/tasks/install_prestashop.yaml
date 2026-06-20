@@ -7,6 +7,11 @@
     chdir: "{{ app_path }}/themes/classic"
   become: true
 
+- name: Vérifier si PrestaShop est déjà installé
+  stat:
+    path: "{{ app_path }}/app/config/parameters.php"
+  register: ps_installed
+
 - name: Installation PrestaShop
   shell: >
     php install-dev/index_cli.php
@@ -21,5 +26,5 @@
     --password={{ prestashop_admin_password }}
     --theme=classic
   args:
-    chdir: "{{ app_path }}"
-    creates: "{{ app_path }}/app/config/parameters.php"
+      chdir: "{{ app_path }}"
+  when: not ps_installed.stat.exists
