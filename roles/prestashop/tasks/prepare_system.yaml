@@ -19,6 +19,8 @@
       - unzip
       - wget
       - composer
+      - nodejs
+      - npm
     state: present
     update_cache: true
 
