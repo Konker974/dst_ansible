@@ -1,4 +1,5 @@
 ---
 - import_tasks: prepare_system.yaml
 - import_tasks: deploy_prestashop.yaml
+- import_tasks: install_composer.yaml
 - import_tasks: install_prestashop.yaml

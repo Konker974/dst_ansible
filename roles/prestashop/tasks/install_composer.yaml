@@ -1,0 +1,4 @@
+- name: Installer les dépendances Prestashop via Composer
+  community.general.composer:
+    command: install
+    working_dir: "{{ app_path }}"

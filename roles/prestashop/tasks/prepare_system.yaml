@@ -9,5 +9,6 @@
       - php-mysql
       - unzip
       - wget
+      - composer
     state: present
     update_cache: true
