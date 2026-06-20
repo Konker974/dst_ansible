@@ -9,8 +9,12 @@
     update_cache: false
   changed_when: false  # Évite de marquer la tâche comme "changed" à chaque exécution
   ignore_errors: yes   # Au cas où la commande échoue (ex: si MySQL est déjà sécurisé)
-  register: mysql_secure_output
 
-- name: Debug output to see root password (if generated)
-  debug:
-    var: mysql_secure_output.stdout_lines
+
+- name: Listen on all interfaces
+  lineinfile:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: '^bind-address'
+    line: 'bind-address = 0.0.0.0'
+  notify: restart mysql
+
