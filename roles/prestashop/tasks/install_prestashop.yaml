@@ -10,7 +10,13 @@
   args:
     chdir: "{{ app_path }}/themes/classic/_dev"
   become: true
-  
+
+- name: Désactiver le mode dev PrestaShop
+  lineinfile:
+    path: "{{ app_path }}/config/defines.inc.php"
+    regexp: "define\\('_PS_MODE_DEV_',"
+    line: "    define('_PS_MODE_DEV_', false);"
+
 - name: Vérifier si PrestaShop est déjà installé
   stat:
     path: "{{ app_path }}/app/config/parameters.php"
@@ -30,5 +36,34 @@
     --password={{ prestashop_admin_password }}
     --theme=classic
   args:
-      chdir: "{{ app_path }}"
+    chdir: "{{ app_path }}"
+  when: not ps_installed.stat.exists
+
+- name: Vider le cache PrestaShop
+  file:
+    path: "{{ app_path }}/var/cache"
+    state: absent
+  when: not ps_installed.stat.exists
+
+- name: Recréer le dossier cache
+  file:
+    path: "{{ app_path }}/var/cache"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: "0755"
+  when: not ps_installed.stat.exists
+
+- name: Générer le cache Symfony prod
+  shell: php bin/console cache:warmup --env=prod
+  args:
+    chdir: "{{ app_path }}"
+  become: true
+  become_user: www-data
+  when: not ps_installed.stat.exists
+
+- name: Supprimer le dossier install-dev
+  file:
+    path: "{{ app_path }}/install-dev"
+    state: absent
   when: not ps_installed.stat.exists
