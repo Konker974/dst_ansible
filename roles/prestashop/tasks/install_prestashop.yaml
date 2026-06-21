@@ -69,8 +69,5 @@
   become: true
   when: not ps_installed.stat.exists
 
-- name: Supprimer le dossier install-dev
-  file:
-    path: "{{ app_path }}/install-dev"
-    state: absent
-  when: not ps_installed.stat.exists
+- name: Flush handlers
+  meta: flush_handlers
