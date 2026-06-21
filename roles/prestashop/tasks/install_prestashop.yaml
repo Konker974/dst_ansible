@@ -2,13 +2,13 @@
 - name: Install dépendances npm thème classic
   shell: npm install
   args:
-    chdir: "{{ app_path }}/themes/classic/"
+    chdir: "{{ app_path }}/themes/classic/_dev"
   become: true
 
 - name: Build assets thème classic
   shell: npm run build
   args:
-    chdir: "{{ app_path }}/themes/classic/"
+    chdir: "{{ app_path }}/themes/classic/_dev"
   become: true
   
 - name: Vérifier si PrestaShop est déjà installé
