@@ -5,3 +5,4 @@
   become: true
   environment:
     COMPOSER_ALLOW_SUPERUSER: "1"
+  tags: debug
