@@ -54,12 +54,19 @@
     mode: "0755"
   when: not ps_installed.stat.exists
 
+- name: Attribuer les droits www-data sur PrestaShop
+  file:
+    path: "{{ app_path }}"
+    owner: www-data
+    group: www-data
+    recurse: true
+  when: not ps_installed.stat.exists
+
 - name: Générer le cache Symfony prod
   shell: php bin/console cache:warmup --env=prod
   args:
     chdir: "{{ app_path }}"
   become: true
-  become_user: www-data
   when: not ps_installed.stat.exists
 
 - name: Supprimer le dossier install-dev
