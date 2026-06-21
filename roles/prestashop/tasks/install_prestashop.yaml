@@ -45,22 +45,16 @@
     state: absent
   when: not ps_installed.stat.exists
 
-- name: Recréer le dossier cache
-  file:
-    path: "{{ app_path }}/var/cache"
-    state: directory
-    owner: www-data
-    group: www-data
-    mode: "0755"
-  when: not ps_installed.stat.exists
-
 - name: Attribuer les droits www-data sur PrestaShop
   file:
     path: "{{ app_path }}"
     owner: www-data
     group: www-data
     recurse: true
-  when: not ps_installed.stat.exists
+
+- name: Permissions écriture sur var/
+  shell: chmod -R 775 {{ app_path }}/var/
+  become: true
 
 - name: Générer le cache Symfony prod
   shell: php bin/console cache:warmup --env=prod
@@ -69,5 +63,8 @@
   become: true
   when: not ps_installed.stat.exists
 
-- name: Flush handlers
-  meta: flush_handlers
+- name: Supprimer le dossier install-dev
+  file:
+    path: "{{ app_path }}/install-dev"
+    state: absent
+  when: not ps_installed.stat.exists
