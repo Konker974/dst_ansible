@@ -63,6 +63,15 @@
   become: true
   when: not ps_installed.stat.exists
 
+- name: Corriger les droits sur le cache après warmup
+  file:
+    path: "{{ app_path }}/var/cache"
+    owner: www-data
+    group: www-data
+    recurse: true
+    mode: "0775"
+  when: not ps_installed.stat.exists
+
 - name: Supprimer le dossier install-dev
   file:
     path: "{{ app_path }}/install-dev"
