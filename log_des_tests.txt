@@ -1,0 +1,120 @@
+ansible-playbook -i inventory app.yaml --ask-vault-pass
+Vault password:
+
+PLAY [bdd_group] *******************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+[WARNING]: Host 'bdd' is using the discovered Python interpreter at '/usr/bin/python3.14', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.21/reference_appendices/interpreter_discovery.html for more information.
+ok: [bdd]
+
+TASK [mysql : Check if MySQL is already installed] *********************************************************************
+ok: [bdd]
+
+TASK [mysql : Install MySQL] *******************************************************************************************
+skipping: [bdd]
+
+TASK [mysql : Listen on all interfaces] ********************************************************************************
+ok: [bdd]
+
+TASK [mysql : meta] ****************************************************************************************************
+
+TASK [mysql : Ensure MySQL is started] *********************************************************************************
+ok: [bdd]
+
+TASK [mysql : Wait for MySQL socket to be available] *******************************************************************
+ok: [bdd]
+
+TASK [mysql : Set MySQL root password] *********************************************************************************
+ok: [bdd]
+
+TASK [mysql : Create database] *****************************************************************************************
+ok: [bdd]
+
+TASK [mysql : Grant privileges] ****************************************************************************************
+ok: [bdd]
+
+PLAY [app_group] *******************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+[WARNING]: Host 'prestashop' is using the discovered Python interpreter at '/usr/bin/python3.14', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.21/reference_appendices/interpreter_discovery.html for more information.
+ok: [prestashop]
+
+TASK [prestashop : Install packages] ***********************************************************************************
+ok: [prestashop]
+
+TASK [prestashop : Deploy PrestaShop VirtualHost] **********************************************************************
+ok: [prestashop]
+
+TASK [prestashop : Enable rewrite module] ******************************************************************************
+ok: [prestashop]
+
+TASK [prestashop : Enable PrestaShop VirtualHost] **********************************************************************
+ok: [prestashop]
+
+TASK [prestashop : Disable Apache default site] ************************************************************************
+changed: [prestashop]
+
+TASK [prestashop : Check Apache configuration] *************************************************************************
+ok: [prestashop]
+
+TASK [prestashop : Flush handlers] *************************************************************************************
+
+RUNNING HANDLER [prestashop : restart apache] **************************************************************************
+changed: [prestashop]
+
+TASK [prestashop : Create directory] ***********************************************************************************
+changed: [prestashop]
+
+TASK [prestashop : Download sources] ***********************************************************************************
+ok: [prestashop]
+
+TASK [prestashop : Copy sources] ***************************************************************************************
+changed: [prestashop]
+
+TASK [prestashop : Install Composer dependencies] **********************************************************************
+changed: [prestashop]
+
+TASK [prestashop : Install npm dependencies for classic theme] *********************************************************
+changed: [prestashop]
+
+TASK [prestashop : Build classic theme assets] *************************************************************************
+changed: [prestashop]
+
+TASK [prestashop : Disable PHP display_errors] *************************************************************************
+ok: [prestashop]
+
+TASK [prestashop : Disable pcre.jit] ***********************************************************************************
+ok: [prestashop]
+
+TASK [prestashop : Disable PrestaShop dev mode] ************************************************************************
+changed: [prestashop]
+
+TASK [prestashop : Check if PrestaShop is already installed] ***********************************************************
+ok: [prestashop]
+
+TASK [prestashop : Install PrestaShop] *********************************************************************************
+changed: [prestashop]
+
+TASK [prestashop : Clear PrestaShop cache] *****************************************************************************
+changed: [prestashop]
+
+TASK [prestashop : Set www-data permissions on PrestaShop] *************************************************************
+changed: [prestashop]
+
+TASK [prestashop : Write permissions on var/ directory] ****************************************************************
+changed: [prestashop]
+
+TASK [prestashop : Generate Symfony prod cache] ************************************************************************
+changed: [prestashop]
+
+TASK [prestashop : Fix cache permissions after warmup] *****************************************************************
+changed: [prestashop]
+
+TASK [prestashop : Remove install-dev directory] ***********************************************************************
+changed: [prestashop]
+
+TASK [prestashop : Flush handlers] *************************************************************************************
+
+PLAY RECAP *************************************************************************************************************
+bdd                        : ok=8    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+prestashop                 : ok=25   changed=15   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
