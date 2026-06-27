@@ -10,6 +10,11 @@ ok: [bdd]
 TASK [mysql : Check if MySQL is already installed] *********************************************************************
 ok: [bdd]
 
+TASK [mysql : Log statut MySQL] ****************************************************************************************
+ok: [bdd] => {
+    "msg": "MySQL déjà installé, skip"
+}
+
 TASK [mysql : Install MySQL] *******************************************************************************************
 skipping: [bdd]
 
@@ -24,14 +29,29 @@ ok: [bdd]
 TASK [mysql : Wait for MySQL socket to be available] *******************************************************************
 ok: [bdd]
 
+TASK [mysql : Log service MySQL] ***************************************************************************************
+ok: [bdd] => {
+    "msg": "Service MySQL démarré et socket disponible."
+}
+
 TASK [mysql : Set MySQL root password] *********************************************************************************
 ok: [bdd]
 
 TASK [mysql : Create database] *****************************************************************************************
 ok: [bdd]
 
+TASK [mysql : Log base de données] *************************************************************************************
+ok: [bdd] => {
+    "msg": "Base de données 'prestashop' prête."
+}
+
 TASK [mysql : Grant privileges] ****************************************************************************************
 ok: [bdd]
+
+TASK [mysql : Log utilisateur MySQL] ***********************************************************************************
+ok: [bdd] => {
+    "msg": "Utilisateur 'admin_prestashop' configuré avec privilèges sur 'prestashop'."
+}
 
 PLAY [app_group] *******************************************************************************************************
 
@@ -57,13 +77,18 @@ changed: [prestashop]
 TASK [prestashop : Check Apache configuration] *************************************************************************
 ok: [prestashop]
 
+TASK [prestashop : Log configuration Apache] ***************************************************************************
+ok: [prestashop] => {
+    "msg": "Apache configuré :\n  - mod_rewrite         : déjà actif\n  - VirtualHost prestashop : déjà actif\n  - Site default        : désactivé\n"
+}
+
 TASK [prestashop : Flush handlers] *************************************************************************************
 
 RUNNING HANDLER [prestashop : restart apache] **************************************************************************
 changed: [prestashop]
 
 TASK [prestashop : Create directory] ***********************************************************************************
-changed: [prestashop]
+ok: [prestashop]
 
 TASK [prestashop : Download sources] ***********************************************************************************
 ok: [prestashop]
@@ -71,8 +96,48 @@ ok: [prestashop]
 TASK [prestashop : Copy sources] ***************************************************************************************
 changed: [prestashop]
 
+TASK [prestashop : Log déploiement sources PrestaShop] *****************************************************************
+ok: [prestashop] => {
+    "msg": "Sources PrestaShop copiées dans /var/www/html/prestashop."
+}
+
 TASK [prestashop : Install Composer dependencies] **********************************************************************
-changed: [prestashop]
+ok: [prestashop]
+
+TASK [prestashop : Log résultat composer install] **********************************************************************
+ok: [prestashop] => {
+    "composer_result.stdout_lines": [
+        "Installing dependencies from lock file",
+        "Verifying lock file contents can be installed on current platform.",
+        "Nothing to install, update or remove",
+        "Generating optimized autoload files",
+        "Class PrestaShop\\PrestaShop\\Core\\Product\\Search\\ProductSearchProviderInterface located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/Interface/ProductSearchProviderInterface.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class PrestaShop\\PrestaShop\\Core\\Module\\WidgetInterface located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/Interface/WidgetInterface.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class PrestaShop\\PrestaShop\\Core\\Product\\Search\\FacetsRendererInterface located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/Interface/FacetsRendererInterface.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class PrestaShop\\PrestaShop\\Core\\Product\\Search\\Facet located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/Mock/Facet.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class PrestaShop\\PrestaShop\\Core\\Localization\\Locale located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/Mock/Locale.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class PrestaShop\\PrestaShop\\Core\\Product\\Search\\Filter located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/Mock/Filter.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class MockProxy located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/MockProxy.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class StockAvailable located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/MockProxy.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class Context located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/MockProxy.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class Db located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/MockProxy.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class Configuration located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/MockProxy.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class Tools located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/MockProxy.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class Category located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/MockProxy.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class Group located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/MockProxy.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class Manufacturer located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/MockProxy.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class Combination located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/MockProxy.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class Shop located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/MockProxy.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class Feature located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/MockProxy.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class FeatureValue located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/MockProxy.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class Module located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/MockProxy.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class FrontController located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/MockProxy.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class Hook located in ./modules/ps_facetedsearch/tests/php/FacetedSearch/MockProxy.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\FacetedSearch\\Tests\\ => ./modules/ps_facetedsearch/tests/php/FacetedSearch). Skipping.",
+        "Class WishlistRepository located in ./modules/blockwishlist/src/Repository/WishlistRepository.php does not comply with psr-4 autoloading standard (rule: PrestaShop\\Module\\BlockWishList\\ => ./modules/blockwishlist/src). Skipping.",
+        "101 packages you are using are looking for funding.",
+        "Use the `composer fund` command to find out more!"
+    ]
+}
 
 TASK [prestashop : Install npm dependencies for classic theme] *********************************************************
 changed: [prestashop]
@@ -92,11 +157,19 @@ changed: [prestashop]
 TASK [prestashop : Check if PrestaShop is already installed] ***********************************************************
 ok: [prestashop]
 
+TASK [prestashop : Log statut installation PrestaShop] *****************************************************************
+ok: [prestashop] => {
+    "msg": "PrestaShop déjà installé (parameters.php présent) → skip installeur CLI"
+}
+
 TASK [prestashop : Install PrestaShop] *********************************************************************************
-changed: [prestashop]
+skipping: [prestashop]
+
+TASK [prestashop : Log output installeur PrestaShop] *******************************************************************
+skipping: [prestashop]
 
 TASK [prestashop : Clear PrestaShop cache] *****************************************************************************
-changed: [prestashop]
+skipping: [prestashop]
 
 TASK [prestashop : Set www-data permissions on PrestaShop] *************************************************************
 changed: [prestashop]
@@ -105,16 +178,22 @@ TASK [prestashop : Write permissions on var/ directory] ************************
 changed: [prestashop]
 
 TASK [prestashop : Generate Symfony prod cache] ************************************************************************
-changed: [prestashop]
+skipping: [prestashop]
+
+TASK [prestashop : Log warmup cache Symfony] ***************************************************************************
+skipping: [prestashop]
 
 TASK [prestashop : Fix cache permissions after warmup] *****************************************************************
-changed: [prestashop]
+skipping: [prestashop]
 
 TASK [prestashop : Remove install-dev directory] ***********************************************************************
-changed: [prestashop]
+skipping: [prestashop]
 
 TASK [prestashop : Flush handlers] *************************************************************************************
 
-PLAY RECAP *************************************************************************************************************
-bdd                        : ok=8    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
-prestashop                 : ok=25   changed=15   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+PLAY [Résumé du déploiement] *******************************************************************************************
+
+TASK [Affichage du résumé] *********************************************************************************************
+ok: [localhost] => {
+    "msg": "Déploiement DST terminé           \nBase de données  : 10.0.9.29\nApplication      : https://ec2-15-237-175-25.eu-west-3.compute.amazonaws.com\n"
+}
