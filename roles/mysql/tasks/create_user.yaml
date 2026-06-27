@@ -10,3 +10,7 @@
     EOF
   no_log: true
   changed_when: false
+
+- name: Log utilisateur MySQL
+  debug:
+    msg: "Utilisateur '{{ bdd_user }}' configuré avec privilèges sur '{{ bdd_name }}'."

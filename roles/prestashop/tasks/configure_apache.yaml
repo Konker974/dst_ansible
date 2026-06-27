@@ -31,5 +31,13 @@
   command: apache2ctl configtest
   changed_when: false
 
+- name: Log configuration Apache
+  debug:
+    msg: |
+      Apache configuré :
+        - mod_rewrite         : {{ 'activé' if rewrite_result.changed else 'déjà actif' }}
+        - VirtualHost prestashop : {{ 'activé' if vhost_result.changed else 'déjà actif' }}
+        - Site default        : {{ 'désactivé' if default_site_result.changed else 'déjà désactivé' }}
+
 - name: Flush handlers
   meta: flush_handlers

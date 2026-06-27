@@ -19,4 +19,8 @@
     dest: "{{ app_path }}"
     remote_src: true
 
+- name: Log déploiement sources PrestaShop
+  debug:
+    msg: "Sources PrestaShop copiées dans {{ app_path }}."
+
 

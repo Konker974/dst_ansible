@@ -34,6 +34,10 @@
     path: "{{ app_path }}/app/config/parameters.php"
   register: ps_installed
 
+- name: Log statut installation PrestaShop
+  debug:
+    msg: "PrestaShop {{ 'déjà installé (parameters.php présent) → skip installeur CLI' if ps_installed.stat.exists else 'absent → lancement de l\\'installeur CLI' }}"
+
 - name: Install PrestaShop
   shell: >
     php install-dev/index_cli.php
@@ -49,6 +53,13 @@
     --theme=classic
   args:
     chdir: "{{ app_path }}"
+  register: ps_install_result
+  no_log: true
+  when: not ps_installed.stat.exists
+
+- name: Log output installeur PrestaShop
+  debug:
+    var: ps_install_result.stdout_lines
   when: not ps_installed.stat.exists
 
 - name: Clear PrestaShop cache
@@ -73,6 +84,11 @@
   args:
     chdir: "{{ app_path }}"
   become: true
+  when: not ps_installed.stat.exists
+
+- name: Log warmup cache Symfony
+  debug:
+    msg: "Cache Symfony prod généré avec succès."
   when: not ps_installed.stat.exists
 
 - name: Fix cache permissions after warmup

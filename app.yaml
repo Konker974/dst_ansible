@@ -8,3 +8,17 @@
   become: true
   roles:
     - prestashop
+
+- name: Résumé du déploiement
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Affichage du résumé
+      debug:
+        msg: |
+          =============================================
+           Déploiement DST terminé
+          =============================================
+           Base de données  : {{ hostvars['bdd']['ansible_host'] }}
+           Application      : http://{{ hostvars['prestashop']['ansible_host'] }}
+          =============================================

@@ -5,4 +5,10 @@
   become: true
   environment:
     COMPOSER_ALLOW_SUPERUSER: "1"
+  register: composer_result
+  tags: debug
+
+- name: Log résultat composer install
+  debug:
+    var: composer_result.stdout_lines
   tags: debug

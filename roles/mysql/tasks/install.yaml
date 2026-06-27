@@ -5,6 +5,10 @@
   failed_when: false
   changed_when: false
 
+- name: Log statut MySQL
+  debug:
+    msg: "MySQL {{ 'déjà installé, skip' if mysql_installed.rc == 0 else 'absent → installation en cours' }}"
+
 - name: Install MySQL
   become: yes
   apt:
