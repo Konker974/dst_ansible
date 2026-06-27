@@ -18,5 +18,5 @@
         msg: |
            Déploiement DST terminé           
            Base de données  : {{ hostvars['bdd']['ansible_host'] }}
-           Application      : https://{{ prestashop_domain }}
+           Application      : https://{{ hostvars[groups['app_group'][0]]['prestashop_domain'] }}
           
