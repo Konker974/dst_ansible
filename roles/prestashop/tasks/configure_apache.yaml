@@ -1,5 +1,5 @@
 ---
-- name: Déploiement du VirtualHost Prestashop
+- name: Deploy PrestaShop VirtualHost
   template:
     src: prestashop.conf.j2
     dest: /etc/apache2/sites-available/prestashop.conf
@@ -8,26 +8,26 @@
     mode: '0644'
   notify: restart apache
 
-- name: Activer le module rewrite
+- name: Enable rewrite module
   command: a2enmod rewrite
   register: rewrite_result
   changed_when: "'already enabled' not in rewrite_result.stdout"
   notify: restart apache
 
-- name: Activer le VirtualHost Prestashop
+- name: Enable PrestaShop VirtualHost
   command: a2ensite prestashop.conf
   register: vhost_result
   changed_when: "'already enabled' not in vhost_result.stdout"
   notify: restart apache
 
-- name: Désactiver le site par défaut Apache
+- name: Disable Apache default site
   command: a2dissite 000-default.conf
   register: default_site_result
   changed_when: "'disabled' in default_site_result.stdout"
   failed_when: false
   notify: restart apache
 
-- name: Vérification de la configuration Apache
+- name: Check Apache configuration
   command: apache2ctl configtest
   changed_when: false
 

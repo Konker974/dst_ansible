@@ -2,6 +2,6 @@
 ---
 - import_tasks: install.yaml
 - meta: flush_handlers
-- import_tasks: define_root_passwd.yaml
-- import_tasks: create_bdd.yaml
+- import_tasks: set_root_password.yaml
+- import_tasks: create_database.yaml
 - import_tasks: create_user.yaml

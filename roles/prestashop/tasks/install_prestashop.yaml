@@ -1,40 +1,40 @@
 ---
-- name: Install dépendances npm thème classic # dans cette version les thèmes devaient être buildés pour fonctionner correctement
+- name: Install npm dependencies for classic theme # in this version themes needed to be built to work correctly
   shell: npm install
   args:
     chdir: "{{ app_path }}/themes/classic/_dev"
   become: true
 
-- name: Build assets thème classic # dans cette version les thèmes devaient être buildés pour fonctionner correctement
+- name: Build classic theme assets # in this version themes needed to be built to work correctly
   shell: npm run build
   args:
     chdir: "{{ app_path }}/themes/classic/_dev"
   become: true
 
-- name: Désactiver display_errors PHP # posait un problème d'affichage d'erreurs php
+- name: Disable PHP display_errors # was causing PHP error display issues
   lineinfile:
     path: /etc/php/8.5/apache2/php.ini
     regexp: '^display_errors'
     line: 'display_errors = Off'
 
-- name: Désactiver pcre.jit # posait un problème d'affichage d'erreurs php
+- name: Disable pcre.jit # was causing PHP error display issues
   lineinfile:
     path: /etc/php/8.5/apache2/php.ini
     regexp: '^;?pcre\.jit'
     line: 'pcre.jit = 0'
 
-- name: Désactiver le mode dev PrestaShop
+- name: Disable PrestaShop dev mode
   lineinfile:
     path: "{{ app_path }}/config/defines.inc.php"
     regexp: "define\\('_PS_MODE_DEV_',"
     line: "    define('_PS_MODE_DEV_', false);"
 
-- name: Vérifier si PrestaShop est déjà installé
+- name: Check if PrestaShop is already installed
   stat:
     path: "{{ app_path }}/app/config/parameters.php"
   register: ps_installed
 
-- name: Installation PrestaShop
+- name: Install PrestaShop
   shell: >
     php install-dev/index_cli.php
     --domain={{ prestashop_domain }}
@@ -51,31 +51,31 @@
     chdir: "{{ app_path }}"
   when: not ps_installed.stat.exists
 
-- name: Vider le cache PrestaShop
+- name: Clear PrestaShop cache
   file:
     path: "{{ app_path }}/var/cache"
     state: absent
   when: not ps_installed.stat.exists
 
-- name: Attribuer les droits www-data sur PrestaShop
+- name: Set www-data permissions on PrestaShop
   file:
     path: "{{ app_path }}"
     owner: www-data
     group: www-data
     recurse: true
 
-- name: Permissions écriture sur var/
+- name: Write permissions on var/ directory
   shell: chmod -R 775 {{ app_path }}/var/
   become: true
 
-- name: Générer le cache Symfony prod
+- name: Generate Symfony prod cache
   shell: php bin/console cache:warmup --env=prod
   args:
     chdir: "{{ app_path }}"
   become: true
   when: not ps_installed.stat.exists
 
-- name: Corriger les droits sur le cache après warmup
+- name: Fix cache permissions after warmup
   file:
     path: "{{ app_path }}/var/cache"
     owner: www-data
@@ -84,7 +84,7 @@
     mode: "0775"
   when: not ps_installed.stat.exists
 
-- name: Supprimer le dossier install-dev
+- name: Remove install-dev directory
   file:
     path: "{{ app_path }}/install-dev"
     state: absent

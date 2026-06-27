@@ -1,4 +1,4 @@
-- name: Installer les dépendances Composer
+- name: Install Composer dependencies
   community.general.composer:
     command: install
     working_dir: "{{ app_path }}"

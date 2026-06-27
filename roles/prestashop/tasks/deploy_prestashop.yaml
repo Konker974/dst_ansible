@@ -1,5 +1,5 @@
 ---
-- name: Création du dossier
+- name: Create directory
   file:
     path: "{{ app_path }}"
     state: directory
@@ -7,13 +7,13 @@
     group: www-data
     mode: "0755"
 
-- name: Téléchargement des sources
+- name: Download sources
   unarchive:
     src: "{{ dl_url }}"
     dest: /tmp
     remote_src: true
 
-- name: Copie des sources
+- name: Copy sources
   copy:
     src: /tmp/PrestaShop-9.1.4/
     dest: "{{ app_path }}"
