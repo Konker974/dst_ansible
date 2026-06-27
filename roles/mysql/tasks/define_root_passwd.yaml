@@ -1,3 +1,14 @@
+- name: S'assurer que MySQL est démarré
+  become: yes
+  service:
+    name: mysql
+    state: started
+
+- name: Attendre que le socket MySQL soit disponible
+  wait_for:
+    path: /var/run/mysqld/mysqld.sock
+    timeout: 30
+
 - name: Définir le mot de passe root MySQL
   become: yes
   shell: |

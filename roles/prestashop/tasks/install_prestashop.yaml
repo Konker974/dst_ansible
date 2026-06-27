@@ -1,23 +1,23 @@
 ---
-- name: Install dépendances npm thème classic
+- name: Install dépendances npm thème classic # dans cette version les thèmes devaient être buildés pour fonctionner correctement
   shell: npm install
   args:
     chdir: "{{ app_path }}/themes/classic/_dev"
   become: true
 
-- name: Build assets thème classic
+- name: Build assets thème classic # dans cette version les thèmes devaient être buildés pour fonctionner correctement
   shell: npm run build
   args:
     chdir: "{{ app_path }}/themes/classic/_dev"
   become: true
 
-- name: Désactiver display_errors PHP
+- name: Désactiver display_errors PHP # posait un problème d'affichage d'erreurs php
   lineinfile:
     path: /etc/php/8.5/apache2/php.ini
     regexp: '^display_errors'
     line: 'display_errors = Off'
 
-- name: Désactiver pcre.jit
+- name: Désactiver pcre.jit # posait un problème d'affichage d'erreurs php
   lineinfile:
     path: /etc/php/8.5/apache2/php.ini
     regexp: '^;?pcre\.jit'
