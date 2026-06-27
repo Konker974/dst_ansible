@@ -16,9 +16,7 @@
     - name: Affichage du résumé
       debug:
         msg: |
-          =============================================
-           Déploiement DST terminé
-          =============================================
+           Déploiement DST terminé           
            Base de données  : {{ hostvars['bdd']['ansible_host'] }}
-           Application      : http://{{ hostvars['prestashop']['ansible_host'] }}
-          =============================================
+           Application      : https://{{ prestashop_domain }}
+          
